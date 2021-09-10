@@ -1,11 +1,20 @@
 console.log("before");
-getUser(1, (user) => {
-  console.log(user);
-  getRepositories(user.gitHUbUsername, (repos) => {
-    console.log(repos);
-  });
-});
+getUser(1, returnUser);
 console.log("after");
+
+function returnUser(user) {
+  console.log(user);
+  getRepositories(user.gitHUbUsername, displayRepositories);
+}
+
+function displayRepositories(repos) {
+  console.log(repos);
+  getCommits(repo, displayCommits);
+}
+
+function displayCommits(commits) {
+  console.log(commits);
+}
 
 /* Three ways to deal with asynchronus code
  -Callbacks
