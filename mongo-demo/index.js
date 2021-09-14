@@ -15,11 +15,12 @@ const courseSchema = new mongoose.Schema({
   isPublished: Boolean,
 });
 
-async function createCourse() {
-  /* The .model method takes two arguments. The first argument is the name of the collection
+/* The .model method takes two arguments. The first argument is the name of the collection
  The second argument is the schema that is correlated to the defined collection. The result
  of this method is a class */
-  const Course = mongoose.model("Course", courseSchema);
+const Course = mongoose.model("Course", courseSchema);
+
+async function createCourse() {
   const course = new Course({
     name: "Angular Course",
     author: "Andrice",
@@ -33,4 +34,14 @@ async function createCourse() {
   console.log(result);
 }
 
-createCourse();
+async function getCourses() {
+  //you can pass a filter as the first argument of the .find method to only return
+  //whatever objects meet the filter requirements
+  const courses = await Course.find({ author: "Andrice", isPublished: true })
+    .limit(10)
+    .sort({ name: "asc" })
+    .select({ name: 1, tags: 1 });
+  console.log(courses);
+}
+
+getCourses();
