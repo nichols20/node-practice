@@ -40,8 +40,12 @@ async function getCourses() {
   //.find({ price: { $gte: 10, $lte: 20 } })
   //.find({ price: { $in: [10, 15, 20] } })
   //.find({ author: "Andrice", isPublished: true })
-  const courses = await Course.find()
-    .or([{ author: "Mosh" }, { isPublished: true }])
+  //Regular expression queries are case sensitive, if you want to make them insensitive append i at the end
+  //in regular expressions you can use the ^ character to reprsent a string that starts with something
+  //in regular expressions $ is used to represent a string that ends with something /Nichols$/
+  //n regular expressions to query a string that starts anywhere front, end, or middle, etc. that syntax is
+  // ---  /.*open.*/ the dot star characters means there could be o or more characters in front/behind this string it doesn't matter
+  const courses = await Course.find({ author: /^Andrice/i })
     .limit(10)
     .sort({ name: "asc" })
     .select({ name: 1, tags: 1 });
