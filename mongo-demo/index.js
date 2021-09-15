@@ -38,8 +38,10 @@ async function getCourses() {
   //you can pass a filter as the first argument of the .find method to only return
   //whatever objects meet the filter requirements
   //.find({ price: { $gte: 10, $lte: 20 } })
+  //.find({ price: { $in: [10, 15, 20] } })
   //.find({ author: "Andrice", isPublished: true })
-  const courses = await Course.find({ price: { $in: [10, 15, 20] } })
+  const courses = await Course.find()
+    .or([{ author: "Mosh" }, { isPublished: true }])
     .limit(10)
     .sort({ name: "asc" })
     .select({ name: 1, tags: 1 });
