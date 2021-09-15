@@ -35,6 +35,8 @@ async function createCourse() {
 }
 
 async function getCourses() {
+  const pageNumber = 2;
+  const pageSize = 10;
   //you can pass a filter as the first argument of the .find method to only return
   //whatever objects meet the filter requirements
   //.find({ price: { $gte: 10, $lte: 20 } })
@@ -46,7 +48,8 @@ async function getCourses() {
   //n regular expressions to query a string that starts anywhere front, end, or middle, etc. that syntax is
   // ---  /.*open.*/ the dot star characters means there could be o or more characters in front/behind this string it doesn't matter
   const courses = await Course.find({ author: /^Andrice/i })
-    .limit(10)
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize)
     .sort({ name: "asc" })
     .count();
   console.log(courses);
