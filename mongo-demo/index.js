@@ -48,7 +48,7 @@ async function getCourses() {
   const courses = await Course.find({ author: /^Andrice/i })
     .limit(10)
     .sort({ name: "asc" })
-    .select({ name: 1, tags: 1 });
+    .count();
   console.log(courses);
 }
 
