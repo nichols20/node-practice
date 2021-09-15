@@ -20,7 +20,10 @@ const Courses = mongoose.model("courses", courseSchema);
 async function getCourses() {
   //Ran into a problem where the Courses.find() method wasn't returning the documents filtered
   //this is because I didn't await the promise, as a result I was getting the query search conditions as the value
-  const documents = await Courses.find({ isPublished: true });
+  //.Select is the method to use when wanting to return a specific property after a query
+  const documents = await Courses.find()
+    .sort({ name: "asc" })
+    .select({ name: 1, author: 1 });
   console.log(documents);
 }
 
