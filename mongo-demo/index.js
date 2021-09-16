@@ -62,19 +62,23 @@ async function getCourses() {
     - Update first: Update directly 
      optionally: get the updated document */
 async function updateCourse(id) {
-  //query first approach
-  const course = await Course.findById(id);
-
-  if (!course) return;
-
-  course.set({
-    isPublished: true,
-    author: "Another Author",
-  });
-
-  const result = await course.save();
+  //update directly approach
+  //This method returns the result of the update operation not a course object
+  //  Course.updateOne()
+  //To return the course object that was updated you would need to use this method
+  //Then add in an option to return the updated properties in the document object
+  const result = await Course.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        author: "Max",
+        isPublished: false,
+      },
+    },
+    { new: true }
+  );
 
   console.log(result);
 }
 
-updateCourse();
+updateCourse("614130651e787cacc8647308");
