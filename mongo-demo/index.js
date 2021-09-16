@@ -55,4 +55,26 @@ async function getCourses() {
   console.log(courses);
 }
 
-getCourses();
+/* There are two ways to update documents in mondoDB-
+    -Query First: findById()
+     Modify its properties
+     save()
+    - Update first: Update directly 
+     optionally: get the updated document */
+async function updateCourse(id) {
+  //query first approach
+  const course = await Course.findById(id);
+
+  if (!course) return;
+
+  course.set({
+    isPublished: true,
+    author: "Another Author",
+  });
+
+  const result = await course.save();
+
+  console.log(result);
+}
+
+updateCourse();

@@ -29,3 +29,6 @@ async function getCourses() {
 }
 
 getCourses();
+
+/*When using the .or() , .and() you need to insert the logic in an array 
+EX: .or([...]) */
